@@ -1,0 +1,50 @@
+---
+title: "NbaStats"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(plotly)
+```
+
+```{r}
+Players <- read.csv("https://query.data.world/s/xydhdvhhogucwkekzb4ulkxzocobmy", header=TRUE, stringsAsFactors=FALSE)
+Players <- rename(Players, "player_id" = "X_id")
+Players
+```
+
+Creation of a dataframe with the career statistics of every NBA players.
+
+```{r}
+Salaries <- read.csv("https://query.data.world/s/k5kxatvlbjwc4wcci6jyhc24lx3doi", header=TRUE, stringsAsFactors=FALSE)
+Salaries
+```
+
+Creation of a dataframe with the salary of every NBA player for each season.
+
+```{r}
+DF <- left_join(Players, Salaries, by = "player_id")
+```
+
+Creation of a new dataframe including statistical informations and salary informations.
+
+```{r}
+DF <- na.omit(DF)
+```
+
+```{r}
+DF <- DF[!(DF$draft_year<=1983),]
+```
+
+Cleaning the missing values
+
+
+
+
+
+
